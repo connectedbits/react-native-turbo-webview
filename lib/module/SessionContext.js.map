@@ -1,0 +1,1 @@
+{"version":3,"names":["React","SessionContext","createContext","sessionHandle","undefined"],"sourceRoot":"../../src","sources":["SessionContext.ts"],"mappings":"AAAA,OAAOA,KAAK,MAAM,OAAO;AAMzB,OAAO,MAAMC,cAAc,gBAAGD,KAAK,CAACE,aAAa,CAAsB;EACrEC,aAAa,EAAEC;AACjB,CAAC,CAAC"}
