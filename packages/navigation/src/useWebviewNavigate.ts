@@ -1,17 +1,16 @@
-import {
-  getActionFromState,
-  getStateFromPath,
-  NavigationContainerRefContext,
-} from '@react-navigation/core';
-import * as React from 'react';
-import LinkingContext from '@react-navigation/native/src/LinkingContext';
-import extractPathFromURL from '@react-navigation/native/src/extractPathFromURL';
-import { StackActions } from '@react-navigation/native';
+import type { Action } from '@react-native-turbo-webview/core';
 import type {
   NavigationState,
   NavigatorScreenParams,
 } from '@react-navigation/core';
-import type { Action } from '@react-native-turbo-webview/core';
+import {
+  NavigationContainerRefContext,
+  getActionFromState,
+  getStateFromPath,
+} from '@react-navigation/core';
+import { LinkingContext, StackActions } from '@react-navigation/native';
+import extractPathFromURL from '@react-navigation/native/src/extractPathFromURL';
+import * as React from 'react';
 
 type NavigateAction<State extends NavigationState> = {
   type: 'NAVIGATE';
