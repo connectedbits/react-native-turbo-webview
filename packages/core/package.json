@@ -34,6 +34,9 @@
   "files": [
     "src",
     "lib",
+    "ios",
+    "android",
+    "*.podspec",
     "!**/__tests__",
     "!**/__fixtures__",
     "!**/__mocks__"
