@@ -1,6 +1,6 @@
 {
   "name": "@react-native-turbo-webview/navigation",
-  "version": "0.1.0",
+  "version": "0.1.0-rc1",
   "description": "React Native Turbo library support for React Navigation",
   "source": "src/index",
   "repository": "https://github.com/software-mansion-labs/react-native-turbo-demo#readme",
