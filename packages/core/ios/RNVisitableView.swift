@@ -9,16 +9,16 @@ import Turbo
 import UIKit
 
 class RNVisitableView: UIView {
-  
+
   @objc var url: NSString = ""
   @objc var onVisitProposal: RCTDirectEventBlock?
   @objc var onLoad: RCTDirectEventBlock?
   @objc var onVisitError: RCTDirectEventBlock?
   @objc var sessionHandle: NSNumber?
   var bridge: RCTBridge?
-  
+
   private var controller: RNVisitableViewController?
-  
+
   init(bridge: RCTBridge) {
     self.bridge = bridge
     super.init(frame: CGRect.zero)
@@ -27,35 +27,35 @@ class RNVisitableView: UIView {
   required init?(coder aDecoder: NSCoder) {
     super.init(coder: aDecoder)
   }
-  
+
   public func getSession() -> Session? {
     if (!Thread.isMainThread) {
       print("getSession accessed from incorrect thread")
       return nil
     }
-    
+
     guard let sessionHandle = sessionHandle else {
       print("Couldn't find session for nil")
       return nil
     }
-    
+
     guard let view = self.bridge?.uiManager?.view(forReactTag: sessionHandle) as? RNSession else {
       print("Couldn't find session for sessionHandle:", sessionHandle)
       return nil
     }
     return view.session
   }
-  
+
   override func didMoveToWindow() {
     let url = URL(string: String(url))!
-    
+
     if (self.controller == nil) {
       print("Open new VistableView with URL passed from JS: ", url)
       setupViewController(url: url)
       self.addSubview((controller?.view)!)
     }
   }
-  
+
   func setupViewController(url: URL) {
     self.controller = RNVisitableViewController(url: url)
     self.controller?.delegate = self
@@ -72,8 +72,8 @@ extension RNVisitableView: RNVisitableViewControllerDelegate {
     session?.delegate = self
     session?.visit(visitable)
   }
-  
-  
+
+
   func visitableDidRender(visitable: Visitable) {
     guard let session = getSession() else {
       return
@@ -84,13 +84,13 @@ extension RNVisitableView: RNVisitableViewControllerDelegate {
     ]
     onLoad?(event)
   }
-  
+
 }
 
 extension RNVisitableView: SessionDelegate {
-  
+
   func sessionWebViewProcessDidTerminate(_ session: Session) {
-    
+
   }
 
   func session(_ session: Session, didProposeVisit proposal: VisitProposal) {
@@ -113,7 +113,7 @@ extension RNVisitableView: SessionDelegate {
       "url": visitable.visitableURL.absoluteString,
       "error": error.localizedDescription,
     ]
-    
+
     if let turboError = error as? TurboError, case let .http(statusCode) = turboError {
       event["statusCode"] = statusCode
     }
@@ -121,10 +121,7 @@ extension RNVisitableView: SessionDelegate {
     onVisitError?(event)
   }
 
-  func webView(_ webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: (WKNavigationActionPolicy) -> ()) {
-      decisionHandler(WKNavigationActionPolicy.cancel)
-      // Handle non-Turbo links
-  }
-  
-  
+  // TODO: Currently any link is allowed, this should be delegated to JS app to make decisions
+
+
 }
