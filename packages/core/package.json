@@ -1,6 +1,6 @@
 {
   "name": "@react-native-turbo-webview/core",
-  "version": "0.1.0-rc1",
+  "version": "0.1.0-rc2",
   "author": "Bartek Fryz <bartlomiej.fryz@swmansion.com> (https://github.com/Fryzu)",
   "license": "MIT",
   "description": "Core implementation of React Native Turbo support",
